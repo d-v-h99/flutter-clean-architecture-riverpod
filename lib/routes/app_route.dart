@@ -13,6 +13,11 @@ part 'app_route.gr.dart';
 //     MaterialRoute(page: DashboardScreen, path: DashboardScreen.routeName),
 //   ],
 // )
+//Nó dùng để cấu hình code generation (tạo file *.gr.dart) khi bạn định nghĩa routes kiểu mới (kiểu “config” — config style).
+// replaceInRouteName: 'Screen,Route' có nghĩa:
+// Khi bạn có file/màn hình tên LoginScreen, AutoRoute sẽ tự generate ra route tên LoginRoute.
+// Nếu là SplashScreen sẽ thành SplashRoute, v.v.
+// → Giúp bạn khỏi phải viết route name thủ công, và code trông đẹp, sạch hơn.
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 //nếu bạn có SplashScreen thì route được generate thành SplashRoute (tự động đổi hậu tố Screen thành Route).
@@ -20,10 +25,10 @@ part 'app_route.gr.dart';
 class AppRouter extends _$AppRouter {
 // @override
 // replaceInRouteName
-
+  AppRouter({super.navigatorKey});
   @override
   RouteType get defaultRouteType =>
-      const RouteType.material(); //.cupertino, .adaptive ..etc
+      const RouteType.adaptive(); //.cupertino, .adaptive ..etc
   //MaterialPageRoute (hiệu ứng chuyển trang kiểu Android).
   // Có thể đổi thành .cupertino() (iOS-style) hoặc .adaptive() (tự chọn theo platform).
 
