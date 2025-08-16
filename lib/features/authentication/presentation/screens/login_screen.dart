@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../routes/app_route.dart';
 
 @RoutePage()
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerWidget {//tương ứng với StatelessWidget
   static const routeName = '/loginScreen';
 
   LoginScreen({Key? key}) : super(key: key);
@@ -19,8 +19,8 @@ class LoginScreen extends ConsumerWidget {
       TextEditingController(text: 'emilyspass');
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authStateNotifierProvider);
-    ref.listen(
+    final state = ref.watch(authStateNotifierProvider); //AuthState để render UI (ví dụ show spinner/enable nút).
+    ref.listen( //→ không gây rebuild UI, chỉ dùng cho side‑effects:
       authStateNotifierProvider.select((value) => value),
       ((previous, next) {
         //show Snackbar on failure
@@ -30,6 +30,7 @@ class LoginScreen extends ConsumerWidget {
         } else if (next is Success) {
           AutoRouter.of(context)
               .pushAndPopUntil(const DashboardRoute(), predicate: (_) => false);
+          // viet gon context.router.replaceAll([const DashboardRoute()]);
         }
       }),
     );
@@ -49,6 +50,12 @@ class LoginScreen extends ConsumerWidget {
               obscureText: true,
               controller: passwordController,
             ),
+            //Khi Loading → spinner.
+            //
+            // Còn lại → hiện nút “Login”.
+            // Freezed map → bắt buộc liệt kê đủ tất cả các case (initial, loading, failure, success).
+            //
+            // maybeMap → cho phép bạn chỉ xử lý một số case nhất định, còn lại thì fallback qua orElse.
             state.maybeMap(
               loading: (_) => const Center(child: CircularProgressIndicator()),
               orElse: () => loginButton(ref),
