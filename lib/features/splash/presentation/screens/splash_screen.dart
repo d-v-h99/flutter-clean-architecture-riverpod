@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../routes/app_route.dart';
 
-@RoutePage()
-class SplashScreen extends ConsumerStatefulWidget {
+@RoutePage() //Annotation của AutoRoute, dùng để tạo route cho SplashScreen khi build file routes.
+class SplashScreen extends ConsumerStatefulWidget { //Giống StatefulWidget nhưng hỗ trợ truy cập ref để đọc Riverpod providers trực tiếp trong widget.
   static const String routeName = '/splashScreen';
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -25,9 +25,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           ? const DashboardRoute()
           : LoginRoute() as PageRouteInfo;
       // ignore: use_build_context_synchronously
-      AutoRouter.of(context).pushAndPopUntil(
+      AutoRouter.of(context).pushAndPopUntil( //Điều hướng sang route mới và xoá hết stack trước đó
         route,
-        predicate: (_) => false,
+        predicate: (_) => false, //nghĩa là không giữ lại bất kỳ page nào trước).
       );
     });
   }
@@ -40,7 +40,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         child: Text(
           'Splash Screen',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
             fontSize: 18.0,
           ),
