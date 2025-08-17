@@ -7,8 +7,8 @@ enum DashboardConcreteState {
   loading,
   loaded,
   failure,
-  fetchingMore,
-  fetchedAllProducts
+  fetchingMore,//// Đang load-more (gọi API lấy thêm)
+  fetchedAllProducts //// Đã load hết sản phẩm (không còn sản phẩm để fetch)
 }
 
 class DashboardState extends Equatable {

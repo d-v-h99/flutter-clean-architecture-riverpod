@@ -15,6 +15,8 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
   ) : super(const DashboardState.initial());
 
   bool get isFetching =>
+  //isFetching kiểm tra xem có đang loading/fetchingMore không.
+  // Mục đích: Ngăn việc gọi fetch khi đã hoặc đang có request đang chạy.
       state.state != DashboardConcreteState.loading &&
       state.state != DashboardConcreteState.fetchingMore;
 

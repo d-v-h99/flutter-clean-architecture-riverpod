@@ -21,7 +21,7 @@ mixin _$AuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(AppException exception) failure,
-    required TResult Function() success,
+    required TResult Function(String username) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$AuthState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(AppException exception)? failure,
-    TResult? Function()? success,
+    TResult? Function(String username)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$AuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(AppException exception)? failure,
-    TResult Function()? success,
+    TResult Function(String username)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -83,9 +83,6 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -102,9 +99,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -132,7 +126,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(AppException exception) failure,
-    required TResult Function() success,
+    required TResult Function(String username) success,
   }) {
     return initial();
   }
@@ -143,7 +137,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(AppException exception)? failure,
-    TResult? Function()? success,
+    TResult? Function(String username)? success,
   }) {
     return initial?.call();
   }
@@ -154,7 +148,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(AppException exception)? failure,
-    TResult Function()? success,
+    TResult Function(String username)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -219,9 +213,6 @@ class __$$LoadingImplCopyWithImpl<$Res>
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -249,7 +240,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(AppException exception) failure,
-    required TResult Function() success,
+    required TResult Function(String username) success,
   }) {
     return loading();
   }
@@ -260,7 +251,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(AppException exception)? failure,
-    TResult? Function()? success,
+    TResult? Function(String username)? success,
   }) {
     return loading?.call();
   }
@@ -271,7 +262,7 @@ class _$LoadingImpl implements Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(AppException exception)? failure,
-    TResult Function()? success,
+    TResult Function(String username)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -339,8 +330,6 @@ class __$$FailureImplCopyWithImpl<$Res>
       _$FailureImpl _value, $Res Function(_$FailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -380,9 +369,7 @@ class _$FailureImpl implements Failure {
   @override
   int get hashCode => Object.hash(runtimeType, exception);
 
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
@@ -394,7 +381,7 @@ class _$FailureImpl implements Failure {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(AppException exception) failure,
-    required TResult Function() success,
+    required TResult Function(String username) success,
   }) {
     return failure(exception);
   }
@@ -405,7 +392,7 @@ class _$FailureImpl implements Failure {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(AppException exception)? failure,
-    TResult? Function()? success,
+    TResult? Function(String username)? success,
   }) {
     return failure?.call(exception);
   }
@@ -416,7 +403,7 @@ class _$FailureImpl implements Failure {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(AppException exception)? failure,
-    TResult Function()? success,
+    TResult Function(String username)? success,
     required TResult orElse(),
   }) {
     if (failure != null) {
@@ -467,10 +454,7 @@ abstract class Failure implements AuthState {
   const factory Failure(final AppException exception) = _$FailureImpl;
 
   AppException get exception;
-
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FailureImplCopyWith<_$FailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -480,6 +464,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String username});
 }
 
 /// @nodoc
@@ -490,28 +476,50 @@ class __$$SuccessImplCopyWithImpl<$Res>
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AuthState
-  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? username = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements Success {
-  const _$SuccessImpl();
+  const _$SuccessImpl(this.username);
+
+  @override
+  final String username;
 
   @override
   String toString() {
-    return 'AuthState.success()';
+    return 'AuthState.success(username: $username)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, username);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -519,9 +527,9 @@ class _$SuccessImpl implements Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(AppException exception) failure,
-    required TResult Function() success,
+    required TResult Function(String username) success,
   }) {
-    return success();
+    return success(username);
   }
 
   @override
@@ -530,9 +538,9 @@ class _$SuccessImpl implements Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(AppException exception)? failure,
-    TResult? Function()? success,
+    TResult? Function(String username)? success,
   }) {
-    return success?.call();
+    return success?.call(username);
   }
 
   @override
@@ -541,11 +549,11 @@ class _$SuccessImpl implements Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(AppException exception)? failure,
-    TResult Function()? success,
+    TResult Function(String username)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(username);
     }
     return orElse();
   }
@@ -589,5 +597,10 @@ class _$SuccessImpl implements Success {
 }
 
 abstract class Success implements AuthState {
-  const factory Success() = _$SuccessImpl;
+  const factory Success(final String username) = _$SuccessImpl;
+
+  String get username;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

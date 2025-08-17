@@ -8,5 +8,5 @@ abstract class AuthState with _$AuthState {
   const factory AuthState.initial() = Initial;
   const factory AuthState.loading() = Loading;
   const factory AuthState.failure(AppException exception) = Failure;
-  const factory AuthState.success() = Success;
+  const factory AuthState.success(String username) = Success;
 }

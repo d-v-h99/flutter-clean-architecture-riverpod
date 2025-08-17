@@ -84,6 +84,22 @@ class User extends Equatable {
       token: token ?? this.token,
     );
   }
+  String get fullName => '$firstName $lastName';
+
+  // Getter kiểm tra xem user đã đăng nhập chưa (dựa vào token)
+  bool get isLoggedIn => token.isNotEmpty;
+
+  // Getter email domain (lấy domain của email)
+  String get emailDomain => email.split('@').length > 1 ? email.split('@')[1] : '';
+
+  // Getter avatar image, nếu image rỗng thì trả về ảnh mặc định
+  String get avatarOrDefault => image.isNotEmpty ? image : 'https://i.imgur.com/BoN9kdC.png';
+
+  // Getter kiểm tra user có phải nữ không
+  bool get isFemale => gender.toLowerCase() == 'female';
+
+  // Getter kiểm tra user có phải nam không
+  bool get isMale => gender.toLowerCase() == 'male';
 }
 //Khi nào dùng equatable và khi nào dùng freezed?
 // equatable: Chỉ lo về so sánh giá trị.

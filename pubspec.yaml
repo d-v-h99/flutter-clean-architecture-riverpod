@@ -9,6 +9,8 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  alice: ^1.0.0
+  alice_dio: ^1.0.7
   auto_route: ^7.4.0
   connectivity_plus: ^4.0.1
   cupertino_icons: ^1.0.2

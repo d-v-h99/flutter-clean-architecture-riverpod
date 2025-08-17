@@ -25,7 +25,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       (user) async {
         final hasSavedUser = await userRepository.saveUser(user: user);
         if (hasSavedUser) {
-          return const AuthState.success();
+          return AuthState.success(user.fullName);
         }
         return AuthState.failure(CacheFailureException());
       },

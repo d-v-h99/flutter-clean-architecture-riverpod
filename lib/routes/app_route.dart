@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../features/authentication/presentation/screens/login_screen.dart';
 import '../features/dashboard/presentation/screens/dashboard_screen.dart';
+import '../features/product_detail/presentation/screen/product_detail_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
 part 'app_route.gr.dart';
 // @MaterialAutoRouter(
@@ -35,8 +36,10 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         /// routes go here
-        AutoRoute(page: SplashRoute.page, initial: true),//Route splash, mở đầu app. - được generate từ SplashScreen.
+        AutoRoute(page: SplashRoute.page, initial: true),
+        //Route splash, mở đầu app. - được generate từ SplashScreen.
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: DashboardRoute.page),
+        AutoRoute(page: ProductDetailRoute.page),
       ];
 }

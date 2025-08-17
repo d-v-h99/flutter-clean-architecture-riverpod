@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/features/dashboard/presentation/providers/dashboard_state_provider.dart';
 import 'package:flutter_project/features/dashboard/presentation/providers/state/dashboard_state.dart';
 import 'package:flutter_project/features/dashboard/presentation/widgets/dashboard_drawer.dart';
+import 'package:flutter_project/features/product_detail/presentation/screen/product_detail_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../routes/app_route.dart';
 
 @RoutePage()
 class DashboardScreen extends ConsumerStatefulWidget {
-  static const String routeName = 'DashboardScreen';
-
-  const DashboardScreen({Key? key}) : super(key: key);
+  // static const String routeName = 'DashboardScreen';
+  final String? fullName;
+  const DashboardScreen(this.fullName, {Key? key}) : super(key: key);
 
   @override
   ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
@@ -21,7 +24,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   final scrollController = ScrollController();
   final TextEditingController searchController = TextEditingController();
   bool isSearchActive = false;
-  Timer? _debounce;
+  Timer? _debounce; //để debounce search (đợi người dùng dừng nhập mới gửi request).
 
   @override
   void initState() {
@@ -36,6 +39,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   void scrollControllerListener() {
+    //Khi scroll tới cuối ListView (cuộn hết), gọi API load-more:
+    // Nếu đang search thì search tiếp,
+    // Nếu không thì fetch sản phẩm tiếp.
     if (scrollController.position.maxScrollExtent == scrollController.offset) {
       final notifier = ref.read(dashboardNotifierProvider.notifier);
       if (isSearchActive) {
@@ -53,8 +59,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(dashboardNotifierProvider);
+    final state = ref.watch(dashboardNotifierProvider);//Theo dõi state của dashboard (sẽ rebuild khi state thay đổi).
 
+    //Nếu fetch xong toàn bộ sản phẩm (fetchedAllProducts) và có message thì hiện SnackBar.
+    // Dùng lắng nghe (listen) để không rebuild UI mà chỉ thực thi side-effect (hiện SnackBar).
     ref.listen(
       dashboardNotifierProvider.select((value) => value),
       ((DashboardState? previous, DashboardState next) {
@@ -118,6 +126,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           : state.hasData
               ? Column(
                   children: [
+                    if(widget.fullName != null)
+                    Text("Xin chào + ${widget.fullName}",style: TextStyle(fontSize: 20),),
                     Expanded(
                       child: Scrollbar(
                         controller: scrollController,
@@ -145,6 +155,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              onTap: (){
+                                context.router.push(ProductDetailRoute(id: product.id));
+                                // AutoRouter.of(context).push(ProductDetailRoute(id: product.id));
+
+                              },
                             );
                           },
                         ),

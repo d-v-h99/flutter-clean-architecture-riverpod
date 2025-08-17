@@ -29,7 +29,7 @@ class LoginScreen extends ConsumerWidget {//tương ứng với StatelessWidget
               SnackBar(content: Text(next.exception.message.toString())));
         } else if (next is Success) {
           AutoRouter.of(context)
-              .pushAndPopUntil(const DashboardRoute(), predicate: (_) => false);
+              .pushAndPopUntil( DashboardRoute(fullName: next.username), predicate: (_) => false);
           // viet gon context.router.replaceAll([const DashboardRoute()]);
         }
       }),
@@ -78,4 +78,8 @@ class LoginScreen extends ConsumerWidget {//tương ứng với StatelessWidget
       child: const Text('Login'),
     );
   }
+  //.notifier:
+// Trả về instance của class quản lý logic (ở đây là AuthStateNotifier).
+// Nếu bạn chỉ dùng ref.read(authStateNotifierProvider), bạn sẽ lấy được state hiện tại (kiểu dữ liệu là AuthState).
+// Thêm .notifier nghĩa là lấy được object để gọi hàm (ví dụ: loginUser), không phải giá trị state.
 }
